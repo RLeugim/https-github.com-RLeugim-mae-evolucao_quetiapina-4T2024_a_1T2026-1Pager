@@ -35,6 +35,7 @@
     padding: 32px 20px 60px;
   }
 
+  /* ── PAGE ── */
   .page {
     max-width: 780px;
     margin: 0 auto;
@@ -42,6 +43,13 @@
     border-radius: 3px;
     box-shadow: 0 8px 40px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.1);
     overflow: hidden;
+    display: none;
+    animation: rise 0.4s ease both;
+  }
+  .page.active { display: block; }
+  @keyframes rise {
+    from { opacity:0; transform:translateY(14px); }
+    to   { opacity:1; transform:translateY(0); }
   }
 
   /* ── TOP BAND ── */
@@ -81,7 +89,7 @@
   }
   .top-meta {
     display: flex;
-    gap: 20px;
+    gap: 8px;
     margin-top: 18px;
     flex-wrap: wrap;
   }
@@ -89,14 +97,41 @@
     background: rgba(255,255,255,0.12);
     border: 1px solid rgba(255,255,255,0.2);
     color: rgba(255,255,255,0.85);
-    font-size: 12px;
-    padding: 4px 12px;
+    font-size: 11px;
+    padding: 3px 10px;
     border-radius: 20px;
+    line-height: 1.5;
   }
+
+  /* ── PAGE INDICATOR BAND ── */
+  .page-band {
+    background: var(--warm);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--ink3);
+  }
+  .page-dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .pdot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--border);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .pdot.active { background: var(--blue); width: 20px; border-radius: 4px; }
+  .page-label { font-style: italic; color: var(--ink3); font-size: 11px; }
 
   /* ── CONTENT ── */
   .content {
-    padding: 32px 40px 36px;
+    padding: 32px 40px 24px;
     display: flex;
     flex-direction: column;
     gap: 28px;
@@ -132,12 +167,8 @@
   }
   .intro-box strong { color: var(--ink); font-weight: 600; }
 
-  /* ── TIMELINE STRIP ── */
-  .timeline {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
+  /* ── TIMELINE ── */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
   .tl-item {
     display: grid;
     grid-template-columns: 90px 16px 1fr;
@@ -152,11 +183,7 @@
     font-style: italic;
     line-height: 1.4;
   }
-  .tl-line {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  .tl-line { display: flex; flex-direction: column; align-items: center; }
   .tl-dot {
     width: 12px; height: 12px;
     border-radius: 50%;
@@ -166,48 +193,30 @@
     box-shadow: 0 0 0 1px var(--border);
   }
   .tl-connector {
-    flex: 1;
-    width: 2px;
+    flex: 1; width: 2px;
     background: var(--border);
     min-height: 12px;
   }
   .tl-item:last-child .tl-connector { display: none; }
-  .tl-body {
-    padding: 10px 0 16px;
-  }
-  .tl-name {
-    font-weight: 600;
-    font-size: 14px;
-    color: var(--ink);
-    margin-bottom: 3px;
-  }
-  .tl-desc {
-    font-size: 13px;
-    color: var(--ink2);
-    line-height: 1.6;
-  }
+  .tl-body { padding: 10px 0 16px; }
+  .tl-name { font-weight: 600; font-size: 14px; color: var(--ink); margin-bottom: 3px; }
+  .tl-desc { font-size: 13px; color: var(--ink2); line-height: 1.6; }
   .tl-result {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 3px 10px;
-    border-radius: 20px;
-    margin-top: 6px;
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 12px; font-weight: 600;
+    padding: 3px 10px; border-radius: 20px; margin-top: 6px;
   }
-  .r-good   { background: var(--green-lt); color: var(--green); }
-  .r-ok     { background: var(--blue-lt);  color: var(--blue); }
-  .r-warn   { background: var(--amber-lt); color: var(--amber); }
-  .r-alert  { background: var(--rose-lt);  color: var(--rose); }
-  .r-now    { background: var(--gold-lt);  color: var(--gold); }
+  .r-good  { background: var(--green-lt); color: var(--green); }
+  .r-ok    { background: var(--blue-lt);  color: var(--blue); }
+  .r-warn  { background: var(--amber-lt); color: var(--amber); }
+  .r-alert { background: var(--rose-lt);  color: var(--rose); }
+  .r-now   { background: var(--gold-lt);  color: var(--gold); }
 
-  /* colors for dots */
-  .dot-grey   { background: #a09888; }
-  .dot-green  { background: var(--green); }
-  .dot-red    { background: var(--rose); }
-  .dot-amber  { background: var(--amber); }
-  .dot-blue   { background: var(--blue); }
+  .dot-grey  { background: #a09888; }
+  .dot-green { background: var(--green); }
+  .dot-red   { background: var(--rose); }
+  .dot-amber { background: var(--amber); }
+  .dot-blue  { background: var(--blue); }
 
   /* ── KEY OBSERVATION ── */
   .key-obs {
@@ -219,30 +228,18 @@
     gap: 14px;
   }
   .key-icon { font-size: 26px; flex-shrink: 0; margin-top: 2px; }
-  .key-body h3 {
-    font-family: 'Lora', serif;
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--ink);
-    margin-bottom: 6px;
-  }
-  .key-body p { font-size: 13px; color: var(--ink2); line-height: 1.7; }
+  .key-body h3 { font-family: 'Lora', serif; font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+  .key-body p  { font-size: 13px; color: var(--ink2); line-height: 1.7; }
 
   /* ── TWO COL ── */
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
   /* ── CARD ── */
-  .card {
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    overflow: hidden;
-  }
+  .card { border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
   .card-head {
     padding: 11px 16px;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.5px; text-transform: uppercase;
   }
   .card-head.blue   { background: var(--blue-lt);  color: var(--blue); }
   .card-head.green  { background: var(--green-lt); color: var(--green); }
@@ -265,93 +262,130 @@
     border-left: 3px solid var(--blue);
     border-radius: 0 3px 3px 0;
     padding: 12px 16px;
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
+    display: flex; gap: 12px; align-items: flex-start;
   }
-  .q-num {
-    font-family: 'Lora', serif;
-    font-size: 20px;
-    color: var(--border);
-    line-height: 1;
-    flex-shrink: 0;
-    width: 22px;
-  }
-  .q-text {
-    font-size: 13px;
-    color: var(--ink);
-    line-height: 1.6;
-  }
+  .q-num { font-family: 'Lora', serif; font-size: 20px; color: var(--border); line-height: 1; flex-shrink: 0; width: 22px; }
+  .q-text { font-size: 13px; color: var(--ink); line-height: 1.6; }
   .q-text strong { color: var(--blue); }
 
-  /* ── FOOTER ── */
-  .footer {
+  /* ── NAV BAR ── */
+  .nav-bar {
     background: var(--warm);
     border-top: 1px solid var(--border);
-    padding: 16px 40px;
-    font-size: 11px;
-    color: var(--ink3);
-    line-height: 1.6;
+    padding: 14px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
+  }
+  .nav-btn {
+    background: var(--blue);
+    color: white;
+    border: none;
+    padding: 9px 20px;
+    border-radius: 3px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .nav-btn:hover { background: #1e4d6b; }
+  .nav-btn:disabled { background: var(--border); color: var(--ink3); cursor: default; }
+  .nav-btn.ghost {
+    background: transparent;
+    color: var(--ink3);
+    border: 1px solid var(--border);
+  }
+  .nav-btn.ghost:hover { background: var(--border); color: var(--ink); }
+  .nav-center { font-size: 12px; color: var(--ink3); font-style: italic; text-align: center; }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: #e8e4dc;
+    border-top: 1px solid var(--border);
+    padding: 12px 40px;
+    font-size: 11px;
+    color: var(--ink3);
+    line-height: 1.7;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .footer-med {
+    color: var(--ink2);
+    font-size: 11px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 5px;
+    margin-bottom: 2px;
+  }
+  .footer-med strong { color: var(--ink); font-weight: 600; }
+  .footer-row {
+    display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
+    gap: 4px;
   }
 
-  /* print */
   @media print {
     body { background: white; padding: 0; }
-    .page { box-shadow: none; border-radius: 0; }
-  }
-
-  /* subtle entrance */
-  .page { animation: rise 0.5s ease both; }
-  @keyframes rise {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
+    .page { box-shadow: none; border-radius: 0; display: block !important; margin-bottom: 40px; page-break-after: always; }
+    .nav-bar { display: none; }
+    .page-band { display: none; }
   }
 </style>
 </head>
 <body>
-<div class="page">
 
-  <!-- ── TOPO ── -->
+<!-- ════════════════════════════════════════════
+     PÁGINA 1 — Contexto + Cronologia até Teva
+═════════════════════════════════════════════ -->
+<div class="page active" id="p1">
+
   <div class="top-band">
-    <div class="top-label">Resumo clínico · Para família e médico</div>
+    <div class="top-label">Resumo clínico · Para família e médico · Página 1 de 3</div>
     <div class="top-title">Maria Glória — O que observámos<br>com o comprimido para dormir</div>
     <div class="top-sub">Quetiapina 50 mg (comprimido de libertação prolongada) · tomada às 17h30</div>
     <div class="top-meta">
-      <span class="meta-pill">Feminino | 70 anos | 159 cm | 85 kg </span>
-      <span class="meta-pill"> HTA | DLP | ATC  </span>
-      <span class="meta-pill"> Lesão no joelho direito </span>
-      <span class="meta-pill">1º AVC 10/2019 Dto. | Internamento </span>
-      <span class="meta-pill">2º AVC +6 dias em 11/2019 Esq. </span>
-      <span class="meta-pill">Inicialmente-Afasia de Wernicke</span>
-      <span class="meta-pill">HE-Heminegligência Esquerda</span>
+      <span class="meta-pill">Feminino | 70 anos | 159 cm | 85 kg</span>
+      <span class="meta-pill">HTA | DLP | ATC</span>
+      <span class="meta-pill">Lesão no joelho direito</span>
+      <span class="meta-pill">1.º AVC 10/2019 Dto. | Internamento</span>
+      <span class="meta-pill">2.º AVC +6 dias em 11/2019 Esq.</span>
+      <span class="meta-pill">Inicialmente — Afasia de Wernicke</span>
+      <span class="meta-pill">HE — Heminegligência Esquerda</span>
       <span class="meta-pill">Epilepsia Vascular</span>
       <span class="meta-pill">Período desta exposição: Out 2024 – Mar 2026</span>
-      <span class="meta-pill">Cuidado familiar no domicílio </span>
-      <span class="meta-pill">Neuropsicologia com Esp. em Psicomotricidade 1h/semana </span>
-      <span class="meta-pill">Suporte de cuidadora - 2ª-6ª 9-17h e Sáb. 9-13h) </span>
-      <span class="meta-pill">22:30 ás 8:00 - marido (sempre) e filho mais novo </span>
-      <span class="meta-pill">Restante tempo - 2 filhos mais novos, companheiras e familiares</span>
+      <span class="meta-pill">Cuidado familiar no domicílio</span>
+      <span class="meta-pill">Neuropsicologia com Esp. em Psicomotricidade 1h/semana</span>
+      <span class="meta-pill">Suporte de cuidadora — 2.ª a 6.ª 9h–17h e Sáb. 9h–13h</span>
+      <span class="meta-pill">22h30 às 8h00 — marido (sempre) e filho mais novo</span>
+      <span class="meta-pill">Restante tempo — 2 filhos mais novos, companheiras e familiares</span>
     </div>
+  </div>
+
+  <div class="page-band">
+    <span class="page-label">Contexto & cronologia — início</span>
+    <div class="page-dots">
+      <div class="pdot active" onclick="goTo(1)"></div>
+      <div class="pdot" onclick="goTo(2)"></div>
+      <div class="pdot" onclick="goTo(3)"></div>
+    </div>
+    <span>1 / 3</span>
   </div>
 
   <div class="content">
 
-    <!-- ── INTRO ── -->
     <div>
       <div class="sec-label">O que é este documento</div>
       <div class="intro-box">
-        A Maria Glória toma um <strong>comprimido para ajudar a dormir e a manter-se calma</strong> (quetiapina 50MG LP). Ao longo de um ano e meio, a farmácia foi fornecendo marcas diferentes do mesmo medicamento — e a família notou diferenças claras no sono e no comportamento. Este documento resume o que foi observado, de forma simples, para partilhar com o médico neurologista.
+        A Maria Glória toma um <strong>comprimido para ajudar a dormir e a manter-se calma</strong> (quetiapina 50 mg LP). Ao longo de um ano e meio, a farmácia foi fornecendo marcas diferentes do mesmo medicamento — e a família notou diferenças claras no sono e no comportamento. Este documento resume o que foi observado, de forma simples, para partilhar com o médico neurologista.
         <br><br>
-        <strong>Nota importante:</strong> todas as marcas contêm o mesmo princípio ativo à mesma dose. As diferenças observadas poderão dever-se à forma como cada comprimido liberta o medicamento no organismo, processo de fabrico, variação da matéria prima, entre outros — algo que depois possa variar de pessoa para pessoa, especialmente em pessoas de idade mais avançada
+        <strong>Nota importante:</strong> todas as marcas contêm o mesmo princípio ativo à mesma dose. As diferenças observadas poderão dever-se à forma como cada comprimido liberta o medicamento no organismo, processo de fabrico, variação da matéria prima, entre outros — algo que pode variar de pessoa para pessoa, especialmente em pessoas de idade mais avançada.
       </div>
     </div>
 
-    <!-- ── TIMELINE ── -->
     <div>
       <div class="sec-label">O que aconteceu, quando</div>
       <div class="timeline">
@@ -360,8 +394,8 @@
           <div class="tl-date">Out 2024<br>→ Set 2025</div>
           <div class="tl-line"><div class="tl-dot dot-grey"></div><div class="tl-connector"></div></div>
           <div class="tl-body">
-            <div class="tl-name">1.º Comprimido genérico (Mylan | 50MG LP)</div>
-            <div class="tl-desc">Durante cerca de um ano. Sono aceitável mas demorava a adormecer. Sem agitação. Mantinha-se em mutismo (praticamente sem falar quaisquer palavra por vários meses). Situação estável.</div>
+            <div class="tl-name">1.º Comprimido genérico (Mylan | 50 mg LP)</div>
+            <div class="tl-desc">Durante cerca de um ano. Sono aceitável mas demorava a adormecer. Sem agitação. Mantinha-se em mutismo (praticamente sem falar qualquer palavra por vários meses). Situação estável.</div>
             <div class="tl-result r-ok">😴 Sono moderado · Calma · Sem fala</div>
           </div>
         </div>
@@ -370,8 +404,8 @@
           <div class="tl-date">Set → Dez 2025</div>
           <div class="tl-line"><div class="tl-dot dot-green"></div><div class="tl-connector"></div></div>
           <div class="tl-body">
-            <div class="tl-name">Generis | 50MG LP — melhor período de sono</div>
-            <div class="tl-desc">A farmácia mudou de marca por falta de stock. A Maria Glória passou a adormecer muito mais depressa, dormir mais profundamente e acordar menos com ruídos. Marido referiu que no Outono as noites são progressivamemte mais longas, e os dias mais frios, que isso seria a provável causa, isto apesar da casa ser climatizada. Comportamento tranquilo. Manteve mutismo.</div>
+            <div class="tl-name">Generis | 50 mg LP — melhor período de sono</div>
+            <div class="tl-desc">A farmácia mudou de marca por falta de stock. A Maria Glória passou a adormecer muito mais depressa, dormir mais profundamente e acordar menos com ruídos. O marido referiu que no Outono as noites são progressivamente mais longas e os dias mais frios, e que isso seria a provável causa — isto apesar da casa ser climatizada. Comportamento tranquilo. Manteve mutismo.</div>
             <div class="tl-result r-good">🌙 Sono excelente · Calma · Sem fala</div>
           </div>
         </div>
@@ -380,8 +414,8 @@
           <div class="tl-date">Natal 2025<br><em style="font-size:10px">algumas noites</em></div>
           <div class="tl-line"><div class="tl-dot dot-red"></div><div class="tl-connector"></div></div>
           <div class="tl-body">
-            <div class="tl-name">Comprimido diferente Quetiapina 25+25 MG IR — 1 à hora habitual e outro à noite</div>
-            <div class="tl-desc">Perto do Natal, num Domingo nenhuma farmácia perto de casa tinha o laboratório habitual ou qualquer alternativa. Foi dado um comprimido de libertação imediata ao lanche e outro ao jantar (dissolve-se teoricamente depressa em vez de ao longo da noite). Noite instável.</div>
+            <div class="tl-name">Comprimido diferente — Quetiapina 25+25 mg IR</div>
+            <div class="tl-desc">Perto do Natal, num domingo, nenhuma farmácia perto de casa tinha o laboratório habitual ou qualquer alternativa LP. Foi dado um comprimido de libertação imediata ao lanche e outro ao jantar (dissolve-se teoricamente depressa em vez de ao longo da noite). Noite instável.</div>
             <div class="tl-result r-alert">⚠️ Sem cobertura noturna adequada</div>
           </div>
         </div>
@@ -390,25 +424,78 @@
           <div class="tl-date">Natal →<br>Jan 2026</div>
           <div class="tl-line"><div class="tl-dot dot-amber"></div><div class="tl-connector"></div></div>
           <div class="tl-body">
-            <div class="tl-name">Teva | 50MG LP — sono bom, mas agitação crescente</div>
-            <div class="tl-desc">Medicamento da mesma família de comprimidos, ainda dentro da validade e por abrir, cedido por um familiar cujo pai havia deixado de tomar. O sono voltou a ser bom. Mas ao longo dos dias seguintes, em período de férias escolares, e também sem a cuidadora habitual, a Maria Glória foi ficando cada vez mais agitada durante o dia — primeiro depois do almoço, depois também de manhã. Menos tolerante com cuidadores não habituais. Foi necessário dar um comprimido extra SOS de Queriapina IR 25mg por volta do meio-dia para acalmar.
+            <div class="tl-name">Teva | 50 mg LP — sono bom, mas agitação crescente</div>
+            <div class="tl-desc">Medicamento da mesma família de comprimidos, ainda dentro da validade e por abrir, cedido por um familiar cujo pai havia deixado de tomar. O sono voltou a ser bom. Mas ao longo dos dias seguintes — em período de férias escolares e também sem a cuidadora habitual —, a Maria Glória foi ficando cada vez mais agitada durante o dia: primeiro depois do almoço, depois também de manhã. Menos tolerante com cuidadores não habituais. Foi necessário dar um comprimido SOS de quetiapina IR 25 mg por volta do meio-dia para acalmar.
             <br><br>
-            <strong>O mais surpreendente:</strong> após cerca de um ano praticamemte sem falar, voltou a verbalizar no primeiro dia com este laboratório — frases com sentido, frequentes, coerentes, com dificuldade em articular as palavras, ou com lacunas de palavras, mas com sentido nas frases/expressões que construía. Teve impacto emocional enorme na família, incluindo telefonemas com a doente.
+            <strong>O mais surpreendente:</strong> após cerca de um ano praticamente sem falar, voltou a verbalizar no primeiro dia com este laboratório — frases com sentido, frequentes, coerentes, com dificuldade em articular as palavras ou com lacunas de palavras, mas com sentido nas frases e expressões que construía. Teve impacto emocional enorme na família, incluindo telefonemas com a doente.
             <br><br>
-            <strong>Na prática o que aconteceu:</strong> nos dias em que ela falou bastante ligaram por diversas vezs aos filhos Miguel e Rui. Aguentou-se quase dois dias assim. Ao segundo dia com o da TEVA, deu-se o SOS para ela acalmar e continuou-se assim mais 1 dia. Ela falava muito, mas estava bem mais agressiva, impaciente, teimosa, e não conseguia descansar. Na primeira noite com TEVA 50 MG LP,  após o dia em que só tomou quetiapina na versão IR, o marido que dorme no quarto adjacente, comentou que não podia ser assim : que tinha sido uma noite terrível para a mãe e para ele. 
-            </strong> Contexto : embora com 79 anos, e ainda muito ativo profissionalmente, ele é que à aprox. 1 ano está mais responsável por ela das 22:30 às 8:00, pontualmente com a ajuda do filho mais novo. Restantes irmãos e outros cuidadores pontuais, vivem noutras casas, a 35 km e a 250 km de distância, e os que estão mais perto a menos de 20 a 100 metros, habitualmente ajudam quando o pai ou do filho mais novo pedem.
+            <strong>Na prática o que aconteceu:</strong> nos dias em que ela falou bastante, ligaram por diversas vezes aos filhos Miguel e Rui. Aguentou-se quase dois dias assim. Ao segundo dia com a Teva, deu-se o SOS para ela acalmar e continuou-se assim mais 1 dia. Ela falava muito, mas estava bem mais agressiva, impaciente, teimosa, e não conseguia descansar. Na primeira noite com Teva 50 mg LP — após o dia em que só tomou quetiapina na versão IR —, o marido, que dorme no quarto adjacente, comentou que não podia ser assim: que tinha sido uma noite terrível para a mãe e para ele.
             <br><br>
-            <strong>Descrição do mutismo dela:</strong> pontualmente chegava a dizer ou ou outra palavra simples, como olá e sim/não, mas sempre numa palavra e pouco mais, e não em mais que 1 a 3x em 1 a 2 dias consecutivos, voltando depois ao mutismo durante várias semanas a vários meses. Como exemplo, a filha refere que a mãe só saia do mutismo com ela para se queixar quando ela lhe cortava as unhas dos pés.
+            <strong>Contexto:</strong> embora com 79 anos e ainda muito ativo profissionalmente, é ele que, há aproximadamente 1 ano, está mais responsável por ela das 22h30 às 8h00, pontualmente com a ajuda do filho mais novo. Os restantes irmãos e outros cuidadores pontuais vivem noutras casas, a 35 km e a 250 km de distância; os que estão mais perto, a menos de 20 a 100 metros, habitualmente ajudam quando o pai ou o filho mais novo pedem.
             <br><br>
-            <strong>Como ela comunica em mutismo:</strong> linguagem não verbal, por interação fisica,  entre outras com a gestual com a cabeça, respondendo a vários pedidos de ações de forma positiva, sejam estas sobre AVDs e algumas sobre AVDIs, em muitas delas quase sempre seletiva de quem aceita estes pedidos ou a quem os faz. Nas sessões de psicomotrocidade, identifica músicas, resultados de expressões matemáticas, entre outros, quase sempre com a ajuda de pictogramas, incluindo hoje em dia, as horas e minutos com a ajuda de um relógio analógico de grandes dimensões existente da cozinha.  A colaboração com esta terapeuta tem sido positiva, e uma vez que já teve a experiência com neuropsicólogas, terapeutas ocupacionais e terapeutas da fala, é visível que no caso da nossa mãe, o sucesso da terapia é bem mais dependente do perfil da terapeuta, do que da especialidade que ela tenha como formação base. </div>    
+            <strong>Descrição do mutismo:</strong> pontualmente chegava a dizer uma ou outra palavra simples, como "olá" e "sim/não", mas sempre numa palavra e pouco mais, e não mais do que 1 a 3 vezes em 1 a 2 dias consecutivos, voltando depois ao mutismo durante várias semanas a vários meses. Como exemplo, a filha refere que a mãe só saía do mutismo com ela para se queixar quando lhe cortava as unhas dos pés.
+            <br><br>
+            <strong>Como comunica em mutismo:</strong> linguagem não verbal, por interação física — entre outras, com gestos com a cabeça, respondendo a vários pedidos de ações de forma positiva, sejam sobre AVDs e algumas sobre AVDIs, em muitas delas quase sempre seletiva de quem aceita esses pedidos ou de quem os faz. Nas sessões de psicomotricidade, identifica músicas, resultados de expressões matemáticas, entre outros, quase sempre com a ajuda de pictogramas — incluindo hoje em dia as horas e minutos com a ajuda de um relógio analógico de grandes dimensões existente na cozinha. A colaboração com esta terapeuta tem sido positiva; uma vez que já teve experiência com neuropsicólogas, terapeutas ocupacionais e terapeutas da fala, é visível que no caso da Maria Glória o sucesso da terapia é bem mais dependente do perfil da terapeuta do que da especialidade que tenha como formação base.</div>
             <div class="tl-result r-warn">🌙 Sono bom · Agitação ↑ · Voltou a falar</div>
           </div>
         </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="nav-bar">
+    <button class="nav-btn ghost" disabled>← Anterior</button>
+    <div class="nav-center">Página 1 de 3 — Contexto & cronologia início</div>
+    <button class="nav-btn" onclick="goTo(2)">Seguinte →</button>
+  </div>
+
+  <div class="footer">
+    <div class="footer-med"><strong>Medicação atual:</strong> Daflon 1000 mg 1×/dia manhã &nbsp;·&nbsp; Zebinix (eslicarbazepina) 400 mg manhã + 800 mg jantar &nbsp;·&nbsp; Quetiapina LP 50 mg 17h30 &nbsp;·&nbsp; Rivaroxabano 20 mg jantar &nbsp;·&nbsp; Lisinopril 20 mg jantar &nbsp;·&nbsp; Atorvastatina/Ezetimiba 40+10 mg jantar &nbsp;·&nbsp; Suplementação NaCl ao longo do dia e refeições</div>
+    <div class="footer-row">
+      <span>Neurologia ULS Braga: Dr. Álvaro Machado &nbsp;·&nbsp; Neurologia CHMA: Dra. Daniela Vieira &nbsp;·&nbsp; Médica de família: Dra. Isabel Ribeiro Pereira</span>
+    </div>
+    <div class="footer-row">
+      <span>Maria Glória Araújo Gomes · Documento elaborado pela família · Março 2026</span>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     PÁGINA 2 — Seroquel + Bluepharma + Fala + Balanço + Hiponatremia
+═════════════════════════════════════════════ -->
+<div class="page" id="p2">
+
+  <div class="top-band">
+    <div class="top-label">Resumo clínico · Para família e médico · Página 2 de 3</div>
+    <div class="top-title">Maria Glória — O que resultou<br>& o achado da fala</div>
+    <div class="top-sub">Quetiapina 50 mg (comprimido de libertação prolongada) · tomada às 17h30</div>
+  </div>
+
+  <div class="page-band">
+    <span class="page-label">Cronologia — continuação · Balanço · Hiponatremia</span>
+    <div class="page-dots">
+      <div class="pdot" onclick="goTo(1)"></div>
+      <div class="pdot active" onclick="goTo(2)"></div>
+      <div class="pdot" onclick="goTo(3)"></div>
+    </div>
+    <span>2 / 3</span>
+  </div>
+
+  <div class="content">
+
+    <div>
+      <div class="sec-label">Cronologia — continuação</div>
+      <div class="timeline">
+
         <div class="tl-item">
           <div class="tl-date">Jan →<br>Fev 2026</div>
           <div class="tl-line"><div class="tl-dot dot-blue"></div><div class="tl-connector"></div></div>
           <div class="tl-body">
-            <div class="tl-name">Seroquel 50MG XR (AstraZeneca, marca original) — estabilização transitória e em 5 a 7 dias recuperada</div>
+            <div class="tl-name">Seroquel 50 mg XR (AstraZeneca, marca original) — estabilização transitória</div>
             <div class="tl-desc">Com todas as marcas genéricas em falta em Portugal e na Europa, passou a tomar a marca original do fabricante (AstraZeneca). Em 2 dias a agitação baixou. Em 4 dias voltou ao mutismo. Em 5–6 dias estava estabilizada. Sono semelhante ao do primeiro genérico (Mylan) — adequado mas sem a profundidade da Generis. Situação gerível para a família. Também acabou por escassez.</div>
             <div class="tl-result r-ok">⚖️ Sono moderado · Calma · Sem fala</div>
           </div>
@@ -418,7 +505,7 @@
           <div class="tl-date">Fev 2026<br>→ atual</div>
           <div class="tl-line"><div class="tl-dot dot-green"></div><div class="tl-connector"></div></div>
           <div class="tl-body">
-            <div class="tl-name">Bluepharma 50MG LP — estabilidade mantida</div>
+            <div class="tl-name">Bluepharma | 50 mg LP — estabilidade mantida</div>
             <div class="tl-desc">Perante a continuação da escassez de todas as marcas disponíveis — incluindo o Seroquel XR —, a farmácia disponibilizou uma nova alternativa genérica da <strong>Bluepharma</strong>, laboratório português sediado em Coimbra. A situação voltou a estabilizar: sono adequado, comportamento calmo, sem necessidade de comprimido extra. O estado atual é semelhante ao do período anterior a todas estas alterações.</div>
             <div class="tl-result r-now">🌙 Sono adequado · Calma · Sem fala · <strong>Atual</strong></div>
           </div>
@@ -427,7 +514,6 @@
       </div>
     </div>
 
-    <!-- ── KEY OBSERVATION ── -->
     <div class="key-obs">
       <div class="key-icon">💬</div>
       <div class="key-body">
@@ -438,7 +524,6 @@
       </div>
     </div>
 
-    <!-- ── DOIS LADOS ── -->
     <div>
       <div class="sec-label">O que a família pesou</div>
       <div class="two-col">
@@ -468,22 +553,64 @@
       </div>
     </div>
 
-    <!-- ── SITUAÇÃO DA GESTSÃO DA HIPONATREMIA ── -->
     <div>
-      <div class="sec-label">Questões para a gestão da Epilepsia Vascular e potencial Hiponatremia</div>
-
-        <div class="card" style="border-left: 3px solid var(--amber);">
-          <div class="card-head amber">Hiponatremia — contexto e gestão actual | Epilepsia Vascular</div>
-          <div class="card-body">
-            <ul>
-              <li>Em 2023, um episódio de múltiplas crises epilépticas gran-mal levou a um internamento de urgência. A análise clínica subsequente, identificou hiponatremia leve/moderada, mas clínica da urgência, fruto do contexto da doente nos 2 a 3 dias anteriores que antecederam a crise epilética,  desconfiou que a hiponatremia possa ter artingindo valores moderados/graves, o que num doente com duplo AVC, acreditou que este poderia ter sido um dos factores mais contributivos para esta crise. Ficou aprox. 16H a repor os valores de Sódio </li>
-              <li>Até lá, por a paciente ser hipertensa, a comnida era dada sem sal. Decidiu-se então introduzir sal normal Às refeições e suplementação progressiva deste — pequenas quantidades adicionadas ao que bebe ao longo do dia e às refeições — seguida por ionograma quadrimestral a pedido da médica, até estabilização.Ingestão de líquidos entre 1,5 a 3L no máximo por dia.</li>
-              <li>A estabilização foi conseguida após 1 a 1,5 anos: desde então, coincidentemente ou não, a frequência e gravidade das crises epilépticas caíram drasticamente.</li>
-            </ul>
-          </div>
+      <div class="sec-label">Gestão da Epilepsia Vascular e Hiponatremia</div>
+      <div class="card" style="border-left: 3px solid var(--amber);">
+        <div class="card-head amber">Hiponatremia — contexto e gestão atual | Epilepsia Vascular</div>
+        <div class="card-body">
+          <ul>
+            <li>Em 2023, um episódio de múltiplas crises epilépticas gran-mal levou a um internamento de urgência. A análise clínica subsequente identificou hiponatremia leve/moderada; a clínica da urgência, face ao contexto da doente nos 2 a 3 dias anteriores, desconfiou que a hiponatremia possa ter atingido valores moderados/graves — o que num doente com duplo AVC considerou ser um dos factores mais contributivos para a crise. Ficou aproximadamente 16 horas a repor os valores de sódio.</li>
+            <li>Até então, por a doente ser hipertensa, a comida era dada sem sal. Decidiu-se introduzir sal normal nas refeições e suplementação progressiva — pequenas quantidades adicionadas ao que bebe ao longo do dia —, seguida de ionograma quadrimestral a pedido da médica até estabilização. Ingestão de líquidos entre 1,5 a 3 L por dia no máximo.</li>
+            <li>A estabilização foi conseguida após 1 a 1,5 anos: desde então, coincidentemente ou não, a frequência e gravidade das crises epilépticas caíram drasticamente.</li>
+          </ul>
         </div>
-    
-    <!-- ── QUESTÕES PARA O MÉDICO ── -->
+      </div>
+    </div>
+
+  </div>
+
+  <div class="nav-bar">
+    <button class="nav-btn ghost" onclick="goTo(1)">← Anterior</button>
+    <div class="nav-center">Página 2 de 3 — Resultados & balanço</div>
+    <button class="nav-btn" onclick="goTo(3)">Seguinte →</button>
+  </div>
+
+  <div class="footer">
+    <div class="footer-med"><strong>Medicação atual:</strong> Daflon 1000 mg 1×/dia manhã &nbsp;·&nbsp; Zebinix (eslicarbazepina) 400 mg manhã + 800 mg jantar &nbsp;·&nbsp; Quetiapina LP 50 mg 17h30 &nbsp;·&nbsp; Rivaroxabano 20 mg jantar &nbsp;·&nbsp; Lisinopril 20 mg jantar &nbsp;·&nbsp; Atorvastatina/Ezetimiba 40+10 mg jantar &nbsp;·&nbsp; Suplementação NaCl ao longo do dia e refeições</div>
+    <div class="footer-row">
+      <span>Neurologia ULS Braga: Dr. Álvaro Machado &nbsp;·&nbsp; Neurologia CHMA: Dra. Daniela Vieira &nbsp;·&nbsp; Médica de família: Dra. Isabel Ribeiro Pereira</span>
+    </div>
+    <div class="footer-row">
+      <span>Maria Glória Araújo Gomes · Documento elaborado pela família · Março 2026</span>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     PÁGINA 3 — Questões para o médico + Equipa + Notas
+═════════════════════════════════════════════ -->
+<div class="page" id="p3">
+
+  <div class="top-band">
+    <div class="top-label">Resumo clínico · Para família e médico · Página 3 de 3</div>
+    <div class="top-title">Maria Glória — Questões para<br>equacionar com o médico</div>
+    <div class="top-sub">Quetiapina 50 mg (comprimido de libertação prolongada) · tomada às 17h30</div>
+  </div>
+
+  <div class="page-band">
+    <span class="page-label">Questões clínicas · Equipa · Notas finais</span>
+    <div class="page-dots">
+      <div class="pdot" onclick="goTo(1)"></div>
+      <div class="pdot" onclick="goTo(2)"></div>
+      <div class="pdot active" onclick="goTo(3)"></div>
+    </div>
+    <span>3 / 3</span>
+  </div>
+
+  <div class="content">
+
     <div>
       <div class="sec-label">Questões para equacionar com o médico</div>
       <div class="q-list">
@@ -491,7 +618,7 @@
         <div class="q-item">
           <div class="q-num">1</div>
           <div class="q-text">
-            A Maria Glória voltou a falar durante uns dias — com sentido e coerência. <strong>O que significa isto?</strong> Há algo que valha a pena avaliar ou explorar com mais detalhe?
+            A Maria Glória voltou a falar durante uns dias — com sentido e coerência. <strong>O que significa isto do ponto de vista neurológico?</strong> Há algo que valha a pena avaliar ou explorar com mais detalhe?
           </div>
         </div>
 
@@ -526,7 +653,6 @@
       </div>
     </div>
 
-    <!-- ── NOTA FINAL ── -->
     <div>
       <div class="sec-label">Equipa clínica & contexto de prescrição</div>
       <div style="display:flex; flex-direction:column; gap:10px;">
@@ -561,33 +687,52 @@
             </div>
           </div>
         </div>
-        
-       <div class="card" style="border-left: 3px solid var(--blue);">
-          <div class="card-body" style="background: var(--blue-lt);">
+
+        <div class="card" style="border-left: 3px solid var(--amber);">
+          <div class="card-body" style="background: var(--amber-lt);">
             <ul>
-              <li style="color: var(--orange);"><strong>A escassez de quetiapina genérica em Portugal e na Europa está confirmada pelo INFARMED — prevista manter-se durante o 1.º semestre de 2026.</li>
+              <li><strong>A escassez de quetiapina genérica em Portugal e na Europa está confirmada pelo INFARMED</strong> — prevista manter-se durante o 1.º semestre de 2026.</li>
             </ul>
           </div>
         </div>
-        
-      </div>
-      
-    </div>
+
         <div class="card" style="border-left: 3px solid var(--blue);">
           <div class="card-body" style="background: var(--blue-lt);">
             <ul>
               <li style="color: var(--blue);"><strong>Este documento não é um diagnóstico nem uma recomendação médica.</strong> É um registo honesto do que a família observou ao longo de mais de um ano de cuidado próximo, para facilitar a conversa com o médico.</li>
-                        </ul>
+            </ul>
           </div>
         </div>
 
-  </div><!-- /content -->
+      </div>
+    </div>
 
-  <div class="footer">
-    <span>Maria Glória Araújo Gomes · Documento elaborado pela família · Março 2026</span>
-    <span>Neurologia ULS Braga: Dr. Álvaro Machado · Neurologia CHMA: Dra. Daniela Vieira · Médica de família: Dra. Isabel Ribeiro Pereira</span>
   </div>
 
-</div><!-- /page -->
+  <div class="nav-bar">
+    <button class="nav-btn ghost" onclick="goTo(2)">← Anterior</button>
+    <div class="nav-center">Página 3 de 3 — Questões & equipa clínica</div>
+    <button class="nav-btn ghost" disabled>Fim →</button>
+  </div>
+
+  <div class="footer">
+    <div class="footer-med"><strong>Medicação atual:</strong> Daflon 1000 mg 1×/dia manhã &nbsp;·&nbsp; Zebinix (eslicarbazepina) 400 mg manhã + 800 mg jantar &nbsp;·&nbsp; Quetiapina LP 50 mg 17h30 &nbsp;·&nbsp; Rivaroxabano 20 mg jantar &nbsp;·&nbsp; Lisinopril 20 mg jantar &nbsp;·&nbsp; Atorvastatina/Ezetimiba 40+10 mg jantar &nbsp;·&nbsp; Suplementação NaCl ao longo do dia e refeições</div>
+    <div class="footer-row">
+      <span>Neurologia ULS Braga: Dr. Álvaro Machado &nbsp;·&nbsp; Neurologia CHMA: Dra. Daniela Vieira &nbsp;·&nbsp; Médica de família: Dra. Isabel Ribeiro Pereira</span>
+    </div>
+    <div class="footer-row">
+      <span>Maria Glória Araújo Gomes · Documento elaborado pela família · Março 2026</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function goTo(n) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('p' + n).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
 </body>
 </html>
